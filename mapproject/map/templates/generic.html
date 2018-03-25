@@ -9,7 +9,12 @@
 
     <!-- Load the static CSS from the map/css/styles.css file -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'css/styles.css' %}">-->
+    <link rel="stylesheet" href="../static/css/styles.css">
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap"></script>
+    <script type="text/javascript" src="../static/js/map.js"></script>
 
 </head>
 
