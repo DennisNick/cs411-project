@@ -14,10 +14,10 @@ from .getArticles import getArticles
 
 def index(request):
     article_list = getArticles()
-    print("HERE")
+    #print("HERE")
     latest_question_list = article_list
-    print("is latest")
-    print (latest_question_list)
+    #print("is latest")
+    #print (latest_question_list)
     template = loader.get_template('map/index.html')
     context = {
         'latest_question_list': latest_question_list

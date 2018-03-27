@@ -18,15 +18,18 @@ def convert(input):
 
 def getArticles():
 
-    request_string = "https://api.nytimes.com/svc/news/v3/content/all/U.S..json?" + "&api-key=" + api_key   
-    response = urllib2.urlopen(request_string)
+    request_string = "https://api.nytimes.com/svc/news/v3/content/all/U.S..json?" + "&api-key=" + api_key
+    try:
+        response = urllib2.urlopen(request_string)
+    except urllib2.HTTPError:
+        print("HTTP Error caught!")
     content = response.read()
     #print(content['results'])
-    
+
     article_list = []
     if content:
-        articles = convert(json.loads(content))
-        print(articles)
+        articles = convert(json.loads(content.decode("utf-8")))
+        #print(articles)
         #print (articles['results'][0]['title'])
         for item in articles['results']:
             if item['geo_facet'] != "":
@@ -36,14 +39,9 @@ def getArticles():
                 title = re.sub(r'\xe2\x80\x9d', '"', title)
                 title = re.sub(r'\xe2\x80\x94', "--", title)
 
-
-
-
-
-
                 arr = [title, item['geo_facet']]
                 article_list.append(arr)
-    print(article_list)
+    #print(article_list)
     return (article_list)
 
 
