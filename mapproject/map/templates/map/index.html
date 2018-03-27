@@ -1,17 +1,30 @@
+
+
+
 <!--Include whatever generic html in this file, basic refactoring-->
-{% extends "generic.html" %} 
+{% extends "generic.html" %}
 
 {% block content %}
     <!--<center><h1>Map Home</h1></center> -->
     <!--<center><p> Map goes here </p></center>-->
-<div style="height: 1000px; width: 1000px; float: left">
+<div style="height: 500px; width: 500px; float: left">
     <div id="floating-panel" >
       <button id="drop" onclick="drop()">Load News</button>
     </div>
     <div id="map"></div>
 </div>
 <div style="height: 1000px; width: 500px; float: right">
-   <p id="news_title"></p>
+   <p id="news_title">{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <!--<li><a href="/polls/{{ latest_question_list}}/">{{ question }}</a></li>--!>
+        <p> {{  question }}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+    </p>
 
    <p id="news_location"></p>
 </div>
