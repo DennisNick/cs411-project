@@ -23,13 +23,15 @@
 
     <ul>
         {% if search_result %}
-            <p id = "search result">{{ "search result:" }}{{  search_result  }}</p>
+            <p id = "search result">{{ "search result:" }}<br>{{ "Title: " }}{{  search_result.0  }}
+            <br>{{ "Location: " }}{{ search_result.1 }}<br>{{ "Link: " }}{{ search_result.2 }}
+            </p>
         {%  endif %}
     </ul>
 <p id="matching search"></p>
     <ul>
         {% for article in article_list %}
-        <p id="news_title">{{article.0}}, {{article.1}}, {{article.2}} </p>
+        <p id="news_title">{{ "Title: " }}{{article.0}},<br> {{ "Location: " }}{{article.1}}, <br>{{ "Link: " }}{{article.2}} </p>
         <!--p id="news_location"></p-->
         {% endfor %}
     </ul>
