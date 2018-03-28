@@ -9,6 +9,7 @@ var neighborhoods = [
   {lat: 52.517, lng: 13.394}
 ];
 
+
 var markers = [];
 var map;
 

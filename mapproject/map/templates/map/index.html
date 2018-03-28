@@ -2,22 +2,24 @@
 {% extends "generic.html" %} 
 
 {% block content %}
-    <!--<center><h1>Map Home</h1></center> -->
-    <!--<center><p> Map goes here </p></center>-->
-<div style="height: 1000px; width: 1000px; float: left">
-    <div id="floating-panel" >
-      <button id="drop" onclick="drop()">Load News</button>
-    </div>
+
+    <!-- The button at the top for loading news -->
+    <div style="height: 1px; width: 1px; float: left">
+        <div id="floating-panel" >
+            <button id="drop" onclick="drop()">Load News</button>
+        </div>
     <div id="map"></div>
-</div>
-<div style="height: 1000px; width: 500px; float: right">
-   <p id="news_title"></p>
+    </div>
+
+    <!-- The setup for the news articles on the right hand side -->
+    <!-- The articles are structured as Title, Location, URL respectively --> 
+    <div style="height: 1000px; width: 900px; float: right">
     <ul>
-       {% for question in latest_question_list %}
-       <p>{{question}}</p>
-       {% endfor %}
+        {% for article in article_list %}
+        <p id="news_title">{{article.0}}, {{article.1}}, {{article.2}} </p>
+        <!--p id="news_location"></p-->
+        {% endfor %}
     </ul>
-   <p id="news_location"></p>
-</div>
+    </div>
 {% endblock %}
 
