@@ -16,4 +16,22 @@ def index(request):
     template = loader.get_template('map/index.html')
     context = { 'article_list': article_list }
 
+    # Your code
+    if request.method == 'GET':  # If the form is submitted
+
+        search_query = request.GET.get('search_box', None)
+        print('this is search query')
+        print(search_query)
+        for article in article_list:
+            print(article[1][0])
+            if (article[1][0] == search_query):
+                print("got one")
+                search_query = article
+                break
+
+        # Do whatever you need with the word the user looked for
+        context = {'article_list': article_list, 'search_result': search_query}
+
     return HttpResponse(template.render(context, request))
+
+

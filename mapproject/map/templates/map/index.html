@@ -14,12 +14,28 @@
     <!-- The setup for the news articles on the right hand side -->
     <!-- The articles are structured as Title, Location, URL respectively --> 
     <div style="height: 1000px; width: 900px; float: right">
+
+<form type="get" action="." style="margin: 0">
+    <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+    <button id="search_submit" type="submit" >Submit</button>
+</form>
+
+
+    <ul>
+        {% if search_result %}
+            <p id = "search result">{{ "search result:" }}{{  search_result  }}</p>
+        {%  endif %}
+    </ul>
+<p id="matching search"></p>
     <ul>
         {% for article in article_list %}
         <p id="news_title">{{article.0}}, {{article.1}}, {{article.2}} </p>
         <!--p id="news_location"></p-->
         {% endfor %}
     </ul>
+
+
+
     </div>
 {% endblock %}
 
