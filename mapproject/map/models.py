@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.contrib.auth.models import User
 from django.db import models
+
+from .getArticles import getArticles
 
 """ Map Model
     --------
@@ -8,7 +11,47 @@ from django.db import models
     Under development
 """
 class USMap(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=10)
 
     def __str__(self):
         return self.name
+
+class Article(models.Model):
+    title = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
+    url = models.URLField(blank=False)
+
+    RATINGS = (
+        (1, '1 Star'),
+        (2, '2 Stars'),
+        (3, '3 Stars'),
+        (4, '4 Stars'),
+        (5, '5 Stars'),
+    )
+
+    rating = models.IntegerField(choices=RATINGS)
+
+    class Meta:
+        ordering = ['title', 'location', 'url', 'rating']
+
+    def __str__(self):
+        return '{0}, {1}, {2}'.format(self.title, self.location, self.url)
+
+class Sideshow(models.Model):
+    title = models.CharField(max_length=100)
+    published_by = models.CharField(max_length=30)
+    publish_date = models.DateField('Publication date')
+    article_synopsis = models.TextField(max_length=1000)
+    url = models.URLField(blank=False)
+
+    def __str__(self):
+        return self.title
+
+class Collections(models.Model):
+    name = models.CharField(max_length=10)
+    articles = models.ManyToManyField(Article)
+
+    def __str(self):
+        return self.name
+
+

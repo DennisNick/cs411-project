@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.http import HttpResponse
 from django.template import loader
+from django.views.generic import DetailView
+from .models import Collections
 
 # getArticles.py file
 from .getArticles import getArticles
@@ -32,6 +34,12 @@ def index(request):
         # Do whatever you need with the word the user looked for
         context = {'article_list': article_list, 'search_result': search_query}
 
+    return HttpResponse(template.render(context, request))
+
+def userpage(request):
+    template = loader.get_template('map/userpage.html')
+    collections = None
+    context = { 'collections': collections }
     return HttpResponse(template.render(context, request))
 
 
