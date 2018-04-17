@@ -41,7 +41,7 @@ class Sideshow(models.Model):
     title = models.CharField(max_length=100)
     published_by = models.CharField(max_length=30)
     publish_date = models.DateField('Publication date')
-    article_synopsis = models.TextField(max_length=1000)
+    article_synopsis = models.CharField(max_length=1000)
     url = models.URLField(blank=False)
 
     def __str__(self):

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.http import HttpResponse
 from django.template import loader
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from .models import Collections
 
 # getArticles.py file
@@ -42,4 +42,8 @@ def userpage(request):
     context = { 'collections': collections }
     return HttpResponse(template.render(context, request))
 
+class CollectionsList(ListView):
+    model = Collections
 
+class CollectionsDetail(DetailView):
+    model = Collections
