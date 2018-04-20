@@ -2,7 +2,6 @@ import re
 import urllib.request as urllib2
 import json
 
-
 api_key = "c4d30868ef6e4b089b2b7a9d296b4b8d"
 section = 'U.S.'
 

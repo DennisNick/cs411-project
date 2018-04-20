@@ -18,7 +18,7 @@ class USMap(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=100)
-    location = models.CharField(max_length=50)
+    location = models.CharField(max_length=100)
     url = models.URLField(blank=False)
 
     RATINGS = (
@@ -53,5 +53,4 @@ class Collections(models.Model):
 
     def __str(self):
         return self.name
-
 

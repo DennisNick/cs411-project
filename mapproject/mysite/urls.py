@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('map/', include('map.urls')),
+    path('oauth/', include('social_django.urls', namespace='social')),
     path('', RedirectView.as_view(url='/map/', permanent=True)),
 ]

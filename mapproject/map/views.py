@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
 from django.http import HttpResponse
 from django.template import loader
-from django.views.generic import DetailView, ListView
+from django.shortcuts import render, redirect
+from social_django.models import UserSocialAuth
 from .models import Collections
+from .cache import cacheArticles
 
 # getArticles.py file
 from .getArticles import getArticles
@@ -14,7 +18,8 @@ from .getArticles import getArticles
     articles queried from the NYTimes API
 """
 def index(request):
-    article_list = getArticles()
+    article_list = cacheArticles(request)
+
     template = loader.get_template('map/index.html')
     context = { 'article_list': article_list }
 
@@ -22,12 +27,8 @@ def index(request):
     if request.method == 'GET':  # If the form is submitted
 
         search_query = request.GET.get('search_box', None)
-        print('this is search query')
-        print(search_query)
         for article in article_list:
-            print(article[1][0])
             if (article[1][0] == search_query):
-                print("got one")
                 search_query = article
                 break
 
@@ -36,14 +37,35 @@ def index(request):
 
     return HttpResponse(template.render(context, request))
 
+""" Login function, defined for the ease of socially logging in with a Google+ account """
+@login_required
+def login(request):
+    login_template = loader.get_template('registration/login.html')
+    context = None
+    return render(request, login_template, context)
+
+""" Logout function, defined to logout of a Google+ account """
+@login_required
+def logout(request):
+    auth_logout(request)
+    return redirect(request, 'registration/logout.html')
+
+""" User page, where the user's favorited collections are located, as well as the
+    ability to logout.
+"""
+@login_required
 def userpage(request):
-    template = loader.get_template('map/userpage.html')
-    collections = None
-    context = { 'collections': collections }
-    return HttpResponse(template.render(context, request))
+    user = request.user
+    logout = False
 
-class CollectionsList(ListView):
-    model = Collections
+    try:
+        google_login = user.social_auth.get(provider='google-oauth2')
+    except UserSocialAuth.DoesNotExist:
+        google_login = None
 
-class CollectionsDetail(DetailView):
-    model = Collections
+    if (user.social_auth.count != 0):
+        logout = True
+
+    context = { 'google_login': google_login, 'logout': logout }
+    return render(request, 'registration/userpage.html', context)
+
