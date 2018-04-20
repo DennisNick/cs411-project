@@ -1,0 +1,7 @@
+{% block content %}
+    <h1> Login to your Map! </h1>
+    <br>
+        <p><strong> Please login with your Google account </strong></p>
+        <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    </br>
+{% endblock %}

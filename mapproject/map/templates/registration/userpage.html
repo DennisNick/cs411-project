@@ -1,0 +1,44 @@
+<!--Include whatever generic html in this file, basic refactoring-->
+{% extends "generic.html" %}
+
+{% block content %}
+<h1> User page </h1>
+    {% if google_login %}
+        <p>Connected as: Someone </p>
+        {% if logout %}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout of Google+</button>
+            </form>
+        {% endif %}
+    {% endif %}
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 75%;
+        }
+        
+        td, th {
+            border: 1px solid #eeeeee;
+            text-align: left;
+            padding: 8px;
+        }
+        
+    </style>
+
+    <br>
+    <h2> Collections </h2>
+
+    <table> 
+        <tr> 
+            <th>Article Title</th>
+            <th>Article URL</th>
+            <th>Location</th>
+            <th>Rating</th>
+        </tr>
+    
+    </table>
+
+{% endblock %}
