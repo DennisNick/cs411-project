@@ -3,6 +3,7 @@ from .models import Article, Collections
 
 basic_ten_articles = []
 
+""" STILL NEEDS WORK """
 def cacheArticles(request):
     if not basic_ten_articles:
         article_list = getArticles()
