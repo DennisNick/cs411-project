@@ -22,6 +22,7 @@ class Article(models.Model):
     url = models.URLField(blank=False)
 
     RATINGS = (
+        (0, '0 Stars'),
         (1, '1 Star'),
         (2, '2 Stars'),
         (3, '3 Stars'),
@@ -36,6 +37,7 @@ class Article(models.Model):
 
     def __str__(self):
         return '{0}, {1}, {2}'.format(self.title, self.location, self.url)
+
 
 class Sideshow(models.Model):
     title = models.CharField(max_length=100)
