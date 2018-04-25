@@ -17,6 +17,7 @@ from .getArticles import getArticles
     Makes use of the getArticles function to properly obtain
     articles queried from the NYTimes API
 """
+@login_required
 def index(request):
     article_list = cacheArticles(request)
 

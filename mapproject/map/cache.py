@@ -21,20 +21,28 @@ def cacheArticles(request):
 
     if not basic_ten_articles:
         article_list = getArticles()
-        #art_len = len(article_list)
 
         for i in range(RANGE):
             article = create_article(article_list[i], 0)
             basic_ten_articles.append(article)
         return article_list
+
     else:
-        for i in range(RANGE):
-            rating = basic_ten_articles[i].rating
+        stored_articles = Article.objects.all().count()
+        start_id = Articles.objects.First().id
+        for i in range(stored_articles):
+            rating = Article.objects.get(pk=i+start_id).rating
+            title = Article.objects.get(pk=i+start_id).title
             if(rating == 0):
-                basic_ten_articles[i].pop()
-                Article.objects.get(pk=i).delete()
-                article = create_article(article_list[i], 0)
-                basic_ten_articles.append(article)
+                for j in range(RANGE):
+                    cached_title = basic_ten_articles[i].title
+                    if(cached_title == title):
+                        basic_ten_articles[i].pop()
+                        Article.objects.get(pk=i+start_id).delete()
+                        break
+
+            #else:
+            #    checkCollections(Articles.objects.get(pk=i))
         return article_list
 
 """ Creating an Article to store in the Database dependent on the
