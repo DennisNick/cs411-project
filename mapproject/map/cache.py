@@ -29,7 +29,7 @@ def cacheArticles(request):
         return article_list
     else:
         for i in range(RANGE):
-            rating = basic_ten_articles[i].rating
+            rating = basic_ten_articles[i]
             if(rating == 0):
                 basic_ten_articles[i].pop()
                 Article.objects.get(pk=i).delete()
@@ -46,8 +46,7 @@ def create_article(article, rating):
     url = article[2]
     article = Article.objects.create(title=title,
                                     location=loc,
-                                    url=url,
-                                    rating=rating)
+                                    url=url)
     return article
 
 def cacheCollections(request):

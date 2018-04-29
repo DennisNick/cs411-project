@@ -21,19 +21,8 @@ class Article(models.Model):
     location = models.CharField(max_length=100)
     url = models.URLField(blank=False)
 
-    RATINGS = (
-        (0, '0 Stars'),
-        (1, '1 Star'),
-        (2, '2 Stars'),
-        (3, '3 Stars'),
-        (4, '4 Stars'),
-        (5, '5 Stars'),
-    )
-
-    rating = models.IntegerField(choices=RATINGS)
-
     class Meta:
-        ordering = ['title', 'location', 'url', 'rating']
+        ordering = ['title', 'location', 'url']
 
     def __str__(self):
         return '{0}, {1}, {2}'.format(self.title, self.location, self.url)
