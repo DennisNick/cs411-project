@@ -2,42 +2,50 @@
 {% extends "generic.html" %} 
 
 {% block content %}
-
-    <!-- The button at the top for loading news -->
-    <div style="height: 1px; width: 1px; float: left">
-        <div id="floating-panel" >
-            <button id="drop" onclick="drop()">Load News</button>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                 <a class="nav-link rounded js-scroll-trigger" href="javascript:drop()">Load</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link rounded js-scroll-trigger" href="{% url 'userpage' %}">User</a>
+              </li>
+          </ul>
         </div>
-    <div id="map"></div>
-    </div>
-
-    <!-- The setup for the news articles on the right hand side -->
-    <!-- The articles are structured as Title, Location, URL respectively --> 
-    <div style="height: 1000px; width: 900px; float: right">
-
-<form type="get" action="." style="margin: 0">
-    <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
-    <button id="search_submit" type="submit" >Submit</button>
-</form>
-
-
-    <ul>
-        {% if search_result %}
-            <p id = "search result">{{ "search result:" }}<br>{{ "Title: " }}{{  search_result.0  }}
-            <br>{{ "Location: " }}{{ search_result.1 }}<br>{{ "Link: " }}{{ search_result.2 }}
-            </p>
-        {%  endif %}
-    </ul>
-<p id="matching search"></p>
-    <ul>
-        {% for article in article_list %}
-        <p id="news_title">{{ "Title: " }}{{article.0}},<br> {{ "Location: " }}{{article.1}}, <br>{{ "Link: " }}{{article.2}} </p>
-        <!--p id="news_location"></p-->
-        {% endfor %}
-    </ul>
-
-
-
+      </div>
+    </nav>
+    <br><br><br><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="map"></div>
+            </div>
+            <div class="col-md-4 article-text">
+                <!-- Articles on the right. The articles are structured as Title, Location, URL respectively -->
+                <div>
+                    <ul>
+                        {% if search_result %}
+                        <p id = "search result">{{ "search result:" }}<br>{{ "Title: " }}{{  search_result.0  }}
+                        <br>{{ "Location: " }}{{ search_result.1 }}<br>{{ "Link: " }}{{ search_result.2 }}
+                        </p>
+                        {%  endif %}
+                    </ul>
+                    <p id="matching search"></p>
+                    <ul>
+                        {% for article in article_list %}
+                        <p id="news_title">{{ "Title: " }}{{article.0}},<br> {{ "Location: " }}{{article.1}}, <br>{{ "Link: " }}{{article.2}} </p>
+                        <!--p id="news_location"></p-->
+                         {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
