@@ -81,13 +81,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cs411_mapproject',
+        #'HOST': '/cloudsql/my-project-411-201600:us-east1:cs411-project',
+        'NAME': 'cs411-mapproject',
         'USER': 'cs411group',
-        'PASSWORD': 'CS411_DB_P4ssW0rd',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'CS411_DB_P4ssW0rd!',
         'PORT': '5432',
+        #'name': 'cs411_mapproject',
+        #'user': 'cs411group',
+        #password': 'cs411_db_p4ssw0rd',
+        #'HOST': '127.0.0.1',
+        #'PORT': '5432',
     },
 }
+
+DATABASES['default']['HOST'] = '/cloudsql/my-project-411-201600:us-east1:cs411-project'
+if os.getenv('GAE_INSTANCE'):
+    pass
+else:
+    DATABASES['default']['HOST'] = '127.0.0.1'
 
 # Implenting Google signin
 AUTHENTICATION_BACKENDS = (
