@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-from decouple import config
+#from decouple import config
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -80,12 +80,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cs411_mapproject',
-        'USER': 'cs411group',
-        'PASSWORD': 'CS411_DB_P4ssW0rd',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        # 'NAME': 'cs411_mapproject',
+        # 'USER': 'cs411group',
+        # 'PASSWORD': 'CS411_DB_P4ssW0rd',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '5432',
     },
 }
 
@@ -124,8 +125,8 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 # Google login Keys
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-ug10frgls1per1rqd36iifl0js62ae4r.apps.googleusercontent.com'  #Client key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'mPcl-tSMXBLIDXIFeUzouGaX' #Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-t0vrte6hsqpf2efa9sl8c7tk5vdvsjqa.apps.googleusercontent.com'  #Client key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'vfddw_rrxGX84VHeBsOrZz6L' #Secret Key
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
