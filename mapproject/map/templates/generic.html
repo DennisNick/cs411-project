@@ -3,31 +3,35 @@
 
 <head>
 
-    {% block title %}<title>Map</title>{% endblock %}
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js" rel="stylesheet">
+    {% block title %}<title>News Map</title>{% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Load the static CSS from the map/css/styles.css file -->
     {% load static %}
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="{% static '../static/css/styles.css' %}">
 
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBX8ujfGm5m-vCSdjEhuG2wNigNy5fcLIA&callback=initMap"></script>
-    <script type="text/javascript" src="../static/js/map.js"></script>
+    <script type="text/javascript" src="{% static '../static/js/map.js' %}"></script>
 
 </head>
 
-<body> 
-    
-    <!-- Part of the navigation bar at the top, does not do anything special currently -->
-    <div class="topnav">
-        <a href="{% url 'userpage' %}">User</a>
-        <a href="#refresh">Refresh</a>
-    </div>
+<body>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-10">
+            <div class="col-md-12">
                 <!-- The block content is derived from the index.html file -->
                 {% block content %}{% endblock %}
             </div>
