@@ -133,9 +133,13 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = 'login'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-t0vrte6hsqpf2efa9sl8c7tk5vdvsjqa.apps.googleusercontent.com'  #Client key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET ='vfddw_rrxGX84VHeBsOrZz6L' #Secret Key
+
+
 # Google login Keys
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-ug10frgls1per1rqd36iifl0js62ae4r.apps.googleusercontent.com'  #Client key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'mPcl-tSMXBLIDXIFeUzouGaX' #Secret Key
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-ug10frgls1per1rqd36iifl0js62ae4r.apps.googleusercontent.com'  #Client key
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'mPcl-tSMXBLIDXIFeUzouGaX' #Secret Key
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
