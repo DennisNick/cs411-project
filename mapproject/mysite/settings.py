@@ -79,6 +79,17 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cs411_mapproject_db',
+        'USER': 'cs411group',
+        'PASSWORD': 'CS411_DB_P4ssW0rd!',
+        'HOST': 'cs411-mapproject.cah5vtqoca74.us-east-2.rds.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+"""
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         #'HOST': '/cloudsql/my-project-411-201600:us-east1:cs411-project',
         'NAME': 'cs411-mapproject',
@@ -98,7 +109,7 @@ if os.getenv('GAE_INSTANCE'):
     pass
 else:
     DATABASES['default']['HOST'] = '127.0.0.1'
-
+"""
 # Implenting Google signin
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
@@ -106,6 +117,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',  # for Google authentication
     'django.contrib.auth.backends.ModelBackend',
 )
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
