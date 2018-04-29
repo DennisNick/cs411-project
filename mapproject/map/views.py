@@ -49,7 +49,7 @@ def login(request):
 
 """ Logout function, defined to logout of a Google+ account """
 @login_required
-def logout(request):
+def logoutuser(request):
     auth_logout(request)
     return redirect(request, 'registration/logout.html')
 

@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
         #'HOST': '/cloudsql/my-project-411-201600:us-east1:cs411-project',
-        'NAME': 'cs411-mapproject',
-        'USER': 'cs411group',
-        'PASSWORD': 'CS411_DB_P4ssW0rd!',
-        'PORT': '5432',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        #'USER': 'cs411group',
+        #'PASSWORD': 'CS411_DB_P4ssW0rd!',
+        #'PORT': '5432',
         #'name': 'cs411_mapproject',
         #'user': 'cs411group',
         #password': 'cs411_db_p4ssw0rd',
