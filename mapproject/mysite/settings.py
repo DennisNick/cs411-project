@@ -77,17 +77,27 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cs411_mapproject',
-        'USER': 'cs411group',
-        'PASSWORD': 'CS411_DB_P4ssW0rd',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    },
-}
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': '/cloudsql/my-project-411-201600:us-east1:cs411-project',
+            'NAME': 'cs411-mapproject',
+            'USER': 'cs411group',
+            'PASSWORD': 'CS411_DB_P4ssW0rd!'
+        },
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'cs411_mapproject',
+            'USER': 'cs411group',
+            'PASSWORD': 'CS411_DB_P4ssW0rd',
+            'HOST': '127.0.0.1',
+            'PORT': '5432'
+        },
+    }
 
 # Implenting Google signin
 AUTHENTICATION_BACKENDS = (
@@ -124,7 +134,7 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 # Google login Keys
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-ug10frgls1per1rqd36iifl0js62ae4r.apps.googleusercontent.com'  #Client key
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-t0vrte6hsqpf2efa9sl8c7tk5vdvsjqa.apps.googleusercontent.com'  #Client key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'mPcl-tSMXBLIDXIFeUzouGaX' #Secret Key
 
 # Internationalization
