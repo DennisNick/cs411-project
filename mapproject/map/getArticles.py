@@ -1,8 +1,8 @@
 import re
 import urllib.request as urllib2
 import json
+from .keys import nyt_apikey
 
-api_key = "c4d30868ef6e4b089b2b7a9d296b4b8d"
 section = 'U.S.'
 
 """ A function used for properly converting the json file received from the API query
@@ -28,7 +28,7 @@ def convert(input):
 """
 def getArticles():
 
-    request_string = "https://api.nytimes.com/svc/news/v3/content/all/U.S..json?" + "&api-key=" + api_key
+    request_string = "https://api.nytimes.com/svc/news/v3/content/all/U.S..json?" + "&api-key=" + nyt_apikey
 
     try:
         response = urllib2.urlopen(request_string)

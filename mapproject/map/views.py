@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 from social_django.models import UserSocialAuth
 from .models import Collections
 from .cache import cacheArticles
+from .keys import googlemaps_apikey
 
 # getArticles.py file
 from .getArticles import getArticles
@@ -30,6 +31,8 @@ def index(request):
         for article in article_list:
             if (article[1][0] == search_query):
                 search_query = article
+                # Make function calls to search the location coordinates and then feed
+                # them to the javascript for the map
                 break
 
         # Do whatever you need with the word the user looked for

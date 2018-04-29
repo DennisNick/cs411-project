@@ -1,6 +1,10 @@
 from django import forms
+from .keys import googlemaps_apikey
 
 # Forms go here
+
+location_api = "https://maps.googleapis.com/maps/api/place/details.json"
+
 """
 class ArticleRating(request):
     user = request.user
