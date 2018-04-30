@@ -75,8 +75,10 @@ def userpage(request):
 @login_required
 def store_article(request):
     user = request.user
-    name = request.name
+    name = request.POST #.get('title', '')
+    print(name)
+
     if(request.method == 'POST'):
         pass
     context = None
-    return render(request, 'map/userpage.html', context)
+    return render(request, 'map/store_article.html', context)

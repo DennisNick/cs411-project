@@ -70,5 +70,13 @@ function clickMarkerEvent(marker, position){
 }
 
 function save(){
-
-}
+    var title =  document.getElementById("article_title").innerHTML;
+    var url = document.getElementById("article_location").innerHTML;
+    $.ajax({
+        type: "POST",
+        url: "/store_article/",
+        data: {
+                'title': title
+              },
+    success: function(msg){alert('wow ' + msg)}});
+    }
