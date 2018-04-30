@@ -2,6 +2,8 @@ import re
 import urllib.request as urllib2
 import json
 from .keys import nyt_apikey
+from .keys import coordinate_apikey
+from pprint import pprint
 
 section = 'U.S.'
 
@@ -36,25 +38,50 @@ def getArticles():
         print("HTTP Error caught!")
 
     RANGE = 10
+
     content = response.read()
     article_list = []
     if content:
-        for i in range(RANGE):
-            articles = convert(json.loads(content.decode("utf-8")))
-            for item in articles['results']:
-                if item['geo_facet'] != "":
-                    title = item['title']
-                    url = item['url']
-                    body = item['abstract']
-                    title = re.sub(r'\xe2\x80\x99', "'", title)
-                    title = re.sub(r'\xe2\x80\x9c', '"', title)
-                    title = re.sub(r'\xe2\x80\x9d', '"', title)
-                    title = re.sub(r'\xe2\x80\x94', "--", title)
+        articles = convert(json.loads(content.decode("utf-8")))
+        for item in articles['results']:
+            #pprint(articles['results'])
+            if item['geo_facet'] != "":
+                title = item['title']
+                url = item['url']
+                body = item['abstract']
+                title = re.sub(r'\xe2\x80\x99', "'", title)
+                title = re.sub(r'\xe2\x80\x9c', '"', title)
+                title = re.sub(r'\xe2\x80\x9d', '"', title)
+                title = re.sub(r'\xe2\x80\x94', "--", title)
 
-                    # These are the current setup for the articles in the article list
-                    arr = [title, item['geo_facet'], url, body]
-                    article_list.append(arr)
-            break
+                # These are the current setup for the articles in the article list
+                arr = [title, item['geo_facet'], url]
+                try:
+                    #print (arr[1][0].split(" ")[0])
+                    val = (arr[1][0].split(" ")[0])
+                except:
+                    val = arr[1][0]
+
+                request_string = "https://maps.googleapis.com/maps/api/geocode/json?address="  +val +\
+                                 "&key=" + coordinate_apikey
+                try:
+                    response = urllib2.urlopen(request_string)
+                    #print(response)
+                except urllib2.HTTPError:
+                    print("HTTP Error caught!")
+
+                content = response.read()
+                if content:
+                    res = convert(json.loads(content.decode("utf-8")))
+                    #pprint (res['results'][0]['geometry']['location'])
+                    loc = res['results'][0]['geometry']['location']
+                    lat = loc['lat']
+                    lng = loc['lng']
+
+                arr = [title, item['geo_facet'], url, lat, lng, body]
+
+
+                article_list.append(arr)
     return (article_list)
 
 

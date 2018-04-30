@@ -75,7 +75,8 @@ def userpage(request):
 @login_required
 def store_article(request):
     user = request.user
+    print(request.form.get(article_title))
     if(request.method == 'POST'):
         pass
     context = None
-    return render(request, 'map/index.html', context)
+    return render(request, 'map/userpage.html', context)
