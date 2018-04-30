@@ -20,6 +20,7 @@ def cacheArticles(request):
     """
     global REFRESH_COUNT
     if (REFRESH_COUNT == 0):
+        Article.objects.all().delete()
         REFRESH_COUNT += 1
         article_list = getArticles()
         for i in range(10):
@@ -31,8 +32,8 @@ def cacheArticles(request):
         last_id = Article.objects.latest('id').id
         for i in range(10):
             pos = last_id-10+i
-            print(pos)
             st_article = Article.objects.get(pk=pos)
+            Article.objects.get(title=st_article.title).delete()
             article = [st_article.title, st_article.location, st_article.url,
                         st_article.lat, st_article.lon, st_article.synopsis]
             last_ten.append(article)
@@ -40,26 +41,6 @@ def cacheArticles(request):
             REFRESH_COUNT = 0
         return last_ten
 
-    """
-    if not basic_ten_articles:
-        article_list = getArticles()
-        for i in range(RANGE):
-            article = create_article(article_list[i])
-            basic_ten_articles.append(article_list[i])
-        return basic_ten_articles
-    else:
-        article_list = getArticles()
-        for i in range(RANGE):
-            stored_article = basic_ten_articles[i]
-            if (stored_article[0] != article_list[i][0]):
-                continue
-            else:
-                Articles.object.all()[:1].get().delete()
-                article = create_article(article_list[i])
-                basic_ten_articles.pop()
-            basic_ten_articles.append(article)
-        return basic_ten_articles
-    """
 """ Creating an Article to store in the Database dependent on the
     basic parameters of the Article model.
 """
@@ -79,33 +60,21 @@ def create_article(article):
                                     synopsis=synopsis)
     return article
 
+CHECK = 0
+def createCollections(request):
+    global CHECK
+    if(CHECK == 0):
+        Collections.objects.create()
+        CHECK += 1
+    return
 
-def cacheCollections(request, article):
+def cacheCollections(article_title):
+    article = Article.objects.get(title=article_title)
+    Collections.articles.add(article)
     """ Here's the collections cache.
         It's all about maintaining the proper articles for the current user. It
         follows logic that is similar to the article cache, with the exception
         being that this is user dependent and the articles should only be removed
         if the rating is changed to 0.
     """
-    pass
-    """
-    user = request.user
-    if(request.method  == 'GET'):
-        if not cache_collection:
-            return None
-        else:
-            pass
-    elif(request.method == 'POST'):
-        if not cache_collection:
-            article = create_article("ARTICLE")
-            Collections.object.create(article)
-            entry = { article.title : 0 }
-            cache_collection.update(article)
-        else:
-    return article
-    """
 
-def checkCache(article_title):
-    if(article_title in cache_collection):
-        return True
-    return False

@@ -37,14 +37,11 @@ def getArticles():
     except urllib2.HTTPError:
         print("HTTP Error caught!")
 
-    RANGE = 10
-
     content = response.read()
     article_list = []
     if content:
         articles = convert(json.loads(content.decode("utf-8")))
         for item in articles['results']:
-            #pprint(articles['results'])
             if item['geo_facet'] != "":
                 title = item['title']
                 url = item['url']

@@ -52,8 +52,16 @@
                         <th>Article Title</th>
                         <th>Article URL</th>
                         <th>Location</th>
-                        <th>Rating</th>
                     </tr>
+                    {% for articles in collection %}
+                        {% for article in articles.1 %}
+                        <tr>
+                            <th>{{article.0}}<th>
+                            <th>{{article.1}}<th>
+                            <th>{{article.2}}<th>
+                        </tr>
+                        {% endblock %}
+                    {% endblock %}
                 </table>
             </div>
 </div>

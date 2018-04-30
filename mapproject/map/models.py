@@ -33,7 +33,7 @@ class Article(models.Model):
 
 class Collections(models.Model):
     name = models.CharField(max_length=10)
-    articles = models.ManyToManyField(Article)
+    articles = models.ManyToManyField(Article, blank=True)
 
     def __str(self):
         return self.name

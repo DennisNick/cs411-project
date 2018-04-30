@@ -67,8 +67,7 @@ function clickMarkerEvent(marker, position){
   document.getElementById("article_blurb").innerHTML = marker.abstract;
   document.getElementById("article_save").style.visibility = "visible";
   document.getElementById("article_save_button").style.visibility = "visible";
-  //document.getElementById("article_save_button").innerHTML = "visible";
-  //document.getElementById("article_store").innerHTML = marker.title;
+  document.getElementById("article_store").value = marker.title;
 }
 
 function save(){
