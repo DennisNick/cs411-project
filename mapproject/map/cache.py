@@ -18,10 +18,11 @@ def cacheArticles(request):
         If it does not have a 0 star rating, make sure the article is stored in the
         collections cache for the current user. This can be made with another function call.
     """
+    return getArticles()
     if not basic_ten_articles:
         article_list = getArticles()
         for i in range(RANGE):
-            #article = create_article(article_list[i])
+            article = create_article(article_list[i])
             basic_ten_articles.append(article_list[i])
         return basic_ten_articles
     else:
