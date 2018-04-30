@@ -72,3 +72,9 @@ def userpage(request):
     context = { 'google_login': google_login, 'logout': logout }
     return render(request, 'registration/userpage.html', context)
 
+@login_required
+def store_article(request):
+    user = request.user
+    if(request.method ==
+    context = None
+    return render(request, 'stored_article.html', context)
