@@ -23,6 +23,7 @@ COLLECTION_COUNT = 0
 
 def index(request):
     article_list = cacheArticles(request)
+
     global COLLECTION_COUNT
     if(COLLECTION_COUNT == 0):
         createCollections(request)
@@ -32,7 +33,7 @@ def index(request):
     context = { 'article_list': article_list }
 
     # Do whatever you need with the word the user looked for
-    context = {'article_list': article_list} #, 'search_result': search_query}
+    context = {'article_list': article_list}
 
     return HttpResponse(template.render(context, request))
 

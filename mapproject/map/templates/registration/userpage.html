@@ -54,14 +54,15 @@
                         <th>Location</th>
                     </tr>
                     {% for articles in collection %}
-                        {% for article in articles.1 %}
                         <tr>
-                            <th>{{article.0}}<th>
-                            <th>{{article.1}}<th>
-                            <th>{{article.2}}<th>
-                        </tr>
+                        {% for article in articles.1 %}
+                            <th>{{articles.0}}<th>
+                            <th>{{articles.1}}<th>
+                            <th>{{articles.2}}<th>
                         {% endfor %}
+                        </tr>
                     {% endfor %}
+                    </tr>
                 </table>
             </div>
 </div>

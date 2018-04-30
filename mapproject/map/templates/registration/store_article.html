@@ -3,7 +3,11 @@
 {% block content %}
 
 <div> 
-    Saved the Article
+    Saved the Article!
+    <br>
+    <a href="{% url 'index' %}">Return to map</a>
+    <br>
+    <a href="{% url 'userpage' %}">Go to userpage</a>
 </div>
 
 {% endblock %}
