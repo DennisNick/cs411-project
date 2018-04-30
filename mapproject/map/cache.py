@@ -2,6 +2,7 @@ from .getArticles import getArticles
 from .models import Article, Collections
 
 basic_ten_articles = []
+cache_collection = []
 RANGE = 10
 
 """ STILL NEEDS WORK """
@@ -61,3 +62,5 @@ def cacheCollections(request):
         if the rating is changed to 0.
     """
     pass
+    user = request.user
+
