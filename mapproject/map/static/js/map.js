@@ -14,6 +14,7 @@
 
 //{{ "Title: " }}{{article.0}},<br> {{ "Location: " }}{{article.1}}, <br>{{ "Link: " }}{{article.2}}{{ "Coord: " }}{{ article.3 }}
 
+
 var markers = [];
 var map;
 
@@ -73,15 +74,17 @@ function save(){
     var title =  document.getElementById("article_title").innerHTML;
     var url = document.getElementById("article_location").innerHTML;
 
-    var form = document.createElement("form");
-    form.setAttribute("method", "POST");
-    form.setAttribute("action", "/store_article/");
-    var hiddenField = document.createElement("input");
-    hiddenField.setAttribute("type", "hidden");
-    hiddenField.setAttribute("name", title);
-    hiddenField.setAttribute("value", url);
-    form.appendChild(hiddenField);
+    $.ajax({
+        type: "POST",
+        url: "/store_article/",
+        data: {
+            'title': title
+        },
+        success: function(msg){
+            alert('wow ' + msg)
+        }
 
-    document.body.appendChild(form);
-    form.submit();
+    });
+
+    toastr.success("Successfully added to your favorites!");
 }
