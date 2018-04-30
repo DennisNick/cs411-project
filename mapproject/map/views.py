@@ -77,6 +77,5 @@ def store_article(request):
     user = request.user
     if(request.method == 'POST'):
         pass
-
     context = None
     return render(request, 'registration/store_article.html', context)

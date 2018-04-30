@@ -35,23 +35,25 @@ def getArticles():
     except urllib2.HTTPError:
         print("HTTP Error caught!")
 
+    RANGE = 10
     content = response.read()
     article_list = []
     if content:
-        articles = convert(json.loads(content.decode("utf-8")))
-        for item in articles['results']:
-            if item['geo_facet'] != "":
-                title = item['title']
-                url = item['url']
-                body = item['abstract']
-                title = re.sub(r'\xe2\x80\x99', "'", title)
-                title = re.sub(r'\xe2\x80\x9c', '"', title)
-                title = re.sub(r'\xe2\x80\x9d', '"', title)
-                title = re.sub(r'\xe2\x80\x94', "--", title)
+        for i in range(RANGE):
+            articles = convert(json.loads(content.decode("utf-8")))
+            for item in articles['results']:
+                if item['geo_facet'] != "":
+                    title = item['title']
+                    url = item['url']
+                    body = item['abstract']
+                    title = re.sub(r'\xe2\x80\x99', "'", title)
+                    title = re.sub(r'\xe2\x80\x9c', '"', title)
+                    title = re.sub(r'\xe2\x80\x9d', '"', title)
+                    title = re.sub(r'\xe2\x80\x94', "--", title)
 
-                # These are the current setup for the articles in the article list
-                arr = [title, item['geo_facet'], url, body]
-                article_list.append(arr)
+                    # These are the current setup for the articles in the article list
+                    arr = [title, item['geo_facet'], url, body]
+                    article_list.append(arr)
     return (article_list)
 
 
