@@ -41,9 +41,12 @@
                      <p id="article_blurb"> </p>
                     <br><br><br>
                     <p id="article_save" style="visibility: hidden">Save to Favorites</p>
+                    <form action='{% url 'store_article' %}' method="POST">
+                    {% csrf_token %}
                     <button id="article_save_button" onclick="save()" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
                         <i class="fa fa-heart" style="font-size: 40px; color:  #f65314;"></i>
                     </button>
+                    </form>
                 </div>
             </div>
         </div>

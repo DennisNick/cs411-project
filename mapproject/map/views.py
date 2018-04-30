@@ -8,7 +8,7 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from social_django.models import UserSocialAuth
 from .models import Collections
-from .cache import cacheArticles
+from .cache import cacheArticles, create_article, cacheCollections
 from .keys import googlemaps_apikey
 
 # getArticles.py file
@@ -75,6 +75,8 @@ def userpage(request):
 @login_required
 def store_article(request):
     user = request.user
-    if(request.method ==
+    if(request.method == 'POST'):
+        pass
+
     context = None
-    return render(request, 'stored_article.html', context)
+    return render(request, 'registration/store_article.html', context)
