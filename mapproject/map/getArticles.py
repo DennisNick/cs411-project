@@ -2,6 +2,8 @@ import re
 import urllib.request as urllib2
 import json
 from .keys import nyt_apikey
+from .keys import coordinate_apikey
+from pprint import pprint
 
 section = 'U.S.'
 
@@ -50,6 +52,31 @@ def getArticles():
 
                 # These are the current setup for the articles in the article list
                 arr = [title, item['geo_facet'], url]
+                try:
+                    print (arr[1][0].split(" ")[0])
+                    val = (arr[1][0].split(" ")[0])
+                except:
+                    print(arr[1][0])
+
+                request_string = "https://maps.googleapis.com/maps/api/geocode/json?address="  +val +\
+                                 "&key=" + coordinate_apikey
+                try:
+                    response = urllib2.urlopen(request_string)
+                    print(response)
+                except urllib2.HTTPError:
+                    print("HTTP Error caught!")
+
+                content = response.read()
+                if content:
+                    res = convert(json.loads(content.decode("utf-8")))
+                    pprint (res['results'][0]['geometry']['location'])
+                    loc = res['results'][0]['geometry']['location']
+                    lat = loc['lat']
+                    lng = loc['lng']
+
+                arr = [title, item['geo_facet'], url, [lat,lng]]
+
+
                 article_list.append(arr)
     return (article_list)
 

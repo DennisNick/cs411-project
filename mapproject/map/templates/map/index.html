@@ -39,7 +39,8 @@
                     <p id="matching search"></p>
                     <ul>
                         {% for article in article_list %}
-                        <p id="news_title">{{ "Title: " }}{{article.0}},<br> {{ "Location: " }}{{article.1}}, <br>{{ "Link: " }}{{article.2}} </p>
+                        <p id="news_title">{{ "Title: " }}{{article.0}},<br> {{ "Location: " }}{{article.1}}, <br>{{ "Link: " }}{{article.2}}
+                                            {{ "Coord: " }}{{ article.3 }}</p>
                         <!--p id="news_location"></p-->
                          {% endfor %}
                     </ul>
