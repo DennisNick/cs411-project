@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-#from decouple import config
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -80,16 +79,39 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-        # 'NAME': 'cs411_mapproject',
-        # 'USER': 'cs411group',
-        # 'PASSWORD': 'CS411_DB_P4ssW0rd',
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cs411_mapproject_db',
+        'USER': 'cs411group',
+        'PASSWORD': 'CS411_DB_P4ssW0rd!',
+        'HOST': 'cs411-mapproject.cah5vtqoca74.us-east-2.rds.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        #'HOST': '/cloudsql/my-project-411-201600:us-east1:cs411-project',
+        'NAME': 'cs411-mapproject',
+        'USER': 'cs411group',
+        'PASSWORD': 'CS411_DB_P4ssW0rd!',
+        'PORT': '5432',
+        #'name': 'cs411_mapproject',
+        #'user': 'cs411group',
+        #password': 'cs411_db_p4ssw0rd',
+        #'HOST': '127.0.0.1',
+        #'PORT': '5432',
     },
 }
 
+DATABASES['default']['HOST'] = '/cloudsql/my-project-411-201600:us-east1:cs411-project'
+if os.getenv('GAE_INSTANCE'):
+    pass
+else:
+    DATABASES['default']['HOST'] = '127.0.0.1'
+"""
 # Implenting Google signin
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
@@ -97,6 +119,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',  # for Google authentication
     'django.contrib.auth.backends.ModelBackend',
 )
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -124,9 +147,13 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = 'login'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
-# Google login Keys
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-t0vrte6hsqpf2efa9sl8c7tk5vdvsjqa.apps.googleusercontent.com'  #Client key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'vfddw_rrxGX84VHeBsOrZz6L' #Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET ='vfddw_rrxGX84VHeBsOrZz6L' #Secret Key
+
+
+# Google login Keys
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='578099860565-ug10frgls1per1rqd36iifl0js62ae4r.apps.googleusercontent.com'  #Client key
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'mPcl-tSMXBLIDXIFeUzouGaX' #Secret Key
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -145,8 +172,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-STATIC_ROOT = '/static/'
+STATIC_URL = '/static/' #'https://storage.googleapis.com/mapproject-cs411/static/'
+#STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR, 'static'),
+#)
+STATIC_ROOT = 'static/'

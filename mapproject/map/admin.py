@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from .models import USMap, Collections, Article, Sideshow
+from .models import USMap, Collections, Article
 
 """ Registering the Map Model """
 @admin.register(USMap)
@@ -16,6 +16,3 @@ class CollectionsAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     model = Article
 
-@admin.register(Sideshow)
-class SideshowAdmin(admin.ModelAdmin):
-    model = Sideshow

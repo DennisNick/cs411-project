@@ -1,8 +1,10 @@
 import re
 import urllib.request as urllib2
 import json
+from .keys import nyt_apikey
+from .keys import coordinate_apikey
+from pprint import pprint
 
-api_key = "c4d30868ef6e4b089b2b7a9d296b4b8d"
 section = 'U.S.'
 
 """ A function used for properly converting the json file received from the API query
@@ -28,7 +30,7 @@ def convert(input):
 """
 def getArticles():
 
-    request_string = "https://api.nytimes.com/svc/news/v3/content/all/U.S..json?" + "&api-key=" + api_key
+    request_string = "https://api.nytimes.com/svc/news/v3/content/all/U.S..json?" + "&api-key=" + nyt_apikey
 
     try:
         response = urllib2.urlopen(request_string)
@@ -43,6 +45,7 @@ def getArticles():
             if item['geo_facet'] != "":
                 title = item['title']
                 url = item['url']
+                body = item['abstract']
                 title = re.sub(r'\xe2\x80\x99', "'", title)
                 title = re.sub(r'\xe2\x80\x9c', '"', title)
                 title = re.sub(r'\xe2\x80\x9d', '"', title)
@@ -50,6 +53,31 @@ def getArticles():
 
                 # These are the current setup for the articles in the article list
                 arr = [title, item['geo_facet'], url]
+                try:
+                    #print (arr[1][0].split(" ")[0])
+                    val = (arr[1][0].split(" ")[0])
+                except:
+                    val = arr[1][0]
+
+                request_string = "https://maps.googleapis.com/maps/api/geocode/json?address="  +val +\
+                                 "&key=" + coordinate_apikey
+                try:
+                    response = urllib2.urlopen(request_string)
+                    #print(response)
+                except urllib2.HTTPError:
+                    print("HTTP Error caught!")
+
+                content = response.read()
+                if content:
+                    res = convert(json.loads(content.decode("utf-8")))
+                    #pprint (res['results'][0]['geometry']['location'])
+                    loc = res['results'][0]['geometry']['location']
+                    lat = loc['lat']
+                    lng = loc['lng']
+
+                arr = [title, item['geo_facet'], url, lat, lng, body]
+
+
                 article_list.append(arr)
     return (article_list)
 

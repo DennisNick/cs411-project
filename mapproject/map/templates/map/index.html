@@ -2,6 +2,107 @@
 {% extends "generic.html" %} 
 
 {% block content %}
+<script>
+    var lat0 = parseFloat("{{article_list.0.3}}");
+    var lng0 = parseFloat("{{article_list.0.4}}");
+    var lat1 = parseFloat("{{article_list.1.3}}");
+    var lng1 = parseFloat("{{article_list.1.4}}");
+    var lat2 = parseFloat("{{article_list.2.3}}");
+    var lng2 = parseFloat("{{article_list.2.4}}");
+    var lat3 = parseFloat("{{article_list.3.3}}");
+    var lng3 = parseFloat("{{article_list.3.4}}");
+    var lat4 = parseFloat("{{article_list.4.3}}");
+    var lng4 = parseFloat("{{article_list.4.4}}");
+    var lat5 = parseFloat("{{article_list.5.3}}");
+    var lng5 = parseFloat("{{article_list.5.4}}");
+    var lat6 = parseFloat("{{article_list.6.3}}");
+    var lng6 = parseFloat("{{article_list.6.4}}");
+    var lat7 = parseFloat("{{article_list.7.3}}");
+    var lng7 = parseFloat("{{article_list.7.4}}");
+    var lat8 = parseFloat("{{article_list.8.3}}");
+    var lng8 = parseFloat("{{article_list.8.4}}");
+    var lat9 = parseFloat("{{article_list.9.3}}");
+    var lng9 = parseFloat("{{article_list.9.4}}");
+    var neighborhoods =
+            [{lat: lat0, lng: lng0},
+            {lat: lat1, lng: lng1},
+            {lat: lat2, lng: lng2},
+            {lat: lat3, lng: lng3},
+            {lat: lat4, lng: lng4},
+            {lat: lat5, lng: lng5},
+            {lat: lat6, lng: lng6},
+            {lat: lat7, lng: lng7},
+            {lat: lat8, lng: lng8},
+            {lat: lat9, lng: lng9}];
+
+    var title0 = ("{{article_list.0.0}}");
+    var title1 = ("{{article_list.1.0}}");
+    var title2 = ("{{article_list.2.0}}");
+    var title3 = ("{{article_list.3.0}}");
+    var title4 = ("{{article_list.4.0}}");
+    var title5 = ("{{article_list.5.0}}");
+    var title6 = ("{{article_list.6.0}}");
+    var title7 = ("{{article_list.7.0}}");
+    var title8 = ("{{article_list.8.0}}");
+    var title9 = ("{{article_list.9.0}}");
+
+    var url0 = ("{{article_list.0.2}}");
+    var url1 = ("{{article_list.1.2}}");
+    var url2 = ("{{article_list.2.2}}");
+    var url3 = ("{{article_list.3.2}}");
+    var url4 = ("{{article_list.4.2}}");
+    var url5 = ("{{article_list.5.2}}");
+    var url6 = ("{{article_list.6.2}}");
+    var url7 = ("{{article_list.7.2}}");
+    var url8 = ("{{article_list.8.2}}");
+    var url9 = ("{{article_list.9.2}}");
+
+    var body0 = ("{{article_list.0.5}}");
+    var body1 = ("{{article_list.1.5}}");
+    var body2 = ("{{article_list.2.5}}");
+    var body3 = ("{{article_list.3.5}}");
+    var body4 = ("{{article_list.4.5}}");
+    var body5 = ("{{article_list.5.5}}");
+    var body6 = ("{{article_list.6.5}}");
+    var body7 = ("{{article_list.7.5}}");
+    var body8 = ("{{article_list.8.5}}");
+    var body9 = ("{{article_list.9.5}}");
+
+    var news_article_title = [title0, title1, title2, title3, title4, title5, title6, title7, title8, title9];
+    var news_article_url = [url0, url1, url2, url3, url4, url5, url6, url7, url8, url9];
+    var news_article_abstract = [body0, body1, body2, body3, body4, body5, body6, body7, body8, body9];
+
+</script>
+<script>
+function save(){
+    var title =  document.getElementById("article_title").innerHTML;
+    var url = document.getElementById("article_location").innerHTML;
+    document.getElementById("article_store").value = title
+    
+
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "/store_article/");
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", title);
+    hiddenField.setAttribute("value", url);
+    form.appendChild(hiddenField);
+    
+    $.ajax({
+    type: "post",
+    url: "/store_article/",
+    data: {
+        'title': title
+    },
+    success: function(msg){alert('wow ' + msg)}});
+}
+</script>
+
+
+<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<script src="../../static/js/map.js"></script>
+<body onload="drop(neighborhoods, news_article_title, news_article_url, news_article_abstract)">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
@@ -11,7 +112,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                 <a class="nav-link rounded js-scroll-trigger" href="javascript:drop()">Load</a>
+                 <a class="nav-link rounded js-scroll-trigger" href="javascript:drop(neighborhoods, news_article_title, news_article_url, news_article_abstract)">Reload News</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link rounded js-scroll-trigger" href="{% url 'userpage' %}">User</a>
@@ -29,23 +130,25 @@
             <div class="col-md-4 article-text">
                 <!-- Articles on the right. The articles are structured as Title, Location, URL respectively -->
                 <div>
-                    <ul>
-                        {% if search_result %}
-                        <p id = "search result">{{ "search result:" }}<br>{{ "Title: " }}{{  search_result.0  }}
-                        <br>{{ "Location: " }}{{ search_result.1 }}<br>{{ "Link: " }}{{ search_result.2 }}
-                        </p>
-                        {%  endif %}
-                    </ul>
-                    <p id="matching search"></p>
-                    <ul>
-                        {% for article in article_list %}
-                        <p id="news_title">{{ "Title: " }}{{article.0}},<br> {{ "Location: " }}{{article.1}}, <br>{{ "Link: " }}{{article.2}} </p>
-                        <!--p id="news_location"></p-->
-                         {% endfor %}
-                    </ul>
+                    <br>
+                    <form method="POST" id="save" action="{% url 'store_article' %}">
+                    {% csrf_token %}
+                    <p class="headline hl5" id="article_title">Select a News Article</p>
+                    </br>
+                    <p class="headline hl6" id="article_location"></p>
+                    </br>
+                    <p id="article_blurb"> </p>
+                    <br><br>
+                    <p id="article_save" style="visibility: hidden">Save to Favorites</p>
+                    <button id="article_save_button" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
+                        <input type="hidden" id="article_store" name="title" value="">
+                        <i class="fa fa-heart" style="font-size: 40px; color:  #f65314;"></i>
+                    </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</body>
 {% endblock %}
 
