@@ -18,36 +18,39 @@ def cacheArticles(request):
         If it does not have a 0 star rating, make sure the article is stored in the
         collections cache for the current user. This can be made with another function call.
     """
-    return getArticles()
     if not basic_ten_articles:
         article_list = getArticles()
-        #art_len = len(article_list)
-
         for i in range(RANGE):
-            article = create_article(article_list[i], 0)
-            basic_ten_articles.append(article)
-        return article_list
+            #article = create_article(article_list[i])
+            basic_ten_articles.append(article_list[i])
+        return basic_ten_articles
     else:
+        article_list = getArticles()
         for i in range(RANGE):
-            rating = basic_ten_articles[i]
-            if(rating == 0):
-                basic_ten_articles[i].pop()
-                Article.objects.get(pk=i).delete()
-                article = create_article(article_list[i], 0)
-                basic_ten_articles.append(article)
-        return article_list
+            stored_article = basic_ten_articles[i]
+            if (stored_article[0] != article_list[i][0]):
+                continue
+            else:
+                Articles.object.all()[:1].get().delete()
+                article = create_article(article_list[i])
+                basic_ten_articles.pop()
+            basic_ten_articles.append(article)
+        return basic_ten_articles
 
 """ Creating an Article to store in the Database dependent on the
     basic parameters of the Article model.
 """
-def create_article(article, rating):
+def create_article(article):
     title = article[0]
     loc = article[1]
     url = article[2]
+    synopsis = article[3]
     article = Article.objects.create(title=title,
                                     location=loc,
-                                    url=url)
+                                    url=url,
+                                    snopsis=synopsis)
     return article
+
 
 def cacheCollections(request):
     """ Here's the collections cache.
