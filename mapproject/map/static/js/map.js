@@ -49,7 +49,7 @@ function addMarkerWithTimeout(position, timeout, title, url, abstract) {
     }));
     markers.push(marker);
     marker.addListener('click', function() {
-		clickMarkerEvent(marker, position);
+		clickMarkerEvent(marker);
 	});
   }, timeout);
 }
@@ -61,8 +61,8 @@ function clearMarkers() {
   markers = [];
 }
 
-function clickMarkerEvent(marker, position){
-   document.getElementById("article_title").innerHTML = marker.title;
+function clickMarkerEvent(marker){
+    document.getElementById("article_title").innerHTML = marker.title;
   document.getElementById("article_location").innerHTML = marker.url;
   document.getElementById("article_blurb").innerHTML = marker.abstract;
   document.getElementById("article_save").style.visibility = "visible";
@@ -70,5 +70,18 @@ function clickMarkerEvent(marker, position){
 }
 
 function save(){
+    var title =  document.getElementById("article_title").innerHTML;
+    var url = document.getElementById("article_location").innerHTML;
 
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "/store_article/");
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", title);
+    hiddenField.setAttribute("value", url);
+    form.appendChild(hiddenField);
+
+    document.body.appendChild(form);
+    form.submit();
 }
