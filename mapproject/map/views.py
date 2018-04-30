@@ -25,6 +25,7 @@ def index(request):
     context = { 'article_list': article_list }
 
     # Your code
+    """"
     if request.method == 'GET':  # If the form is submitted
 
         search_query = request.GET.get('search_box', None)
@@ -34,9 +35,9 @@ def index(request):
                 # Make function calls to search the location coordinates and then feed
                 # them to the javascript for the map
                 break
-
+    """
         # Do whatever you need with the word the user looked for
-        context = {'article_list': article_list, 'search_result': search_query}
+    context = {'article_list': article_list} #, 'search_result': search_query}
 
     return HttpResponse(template.render(context, request))
 
@@ -75,11 +76,6 @@ def userpage(request):
 @login_required
 def store_article(request):
     user = request.user
-    name = request.POST.get('title', '') #.get('title', '')
-    loc = request.POST.get('article_location', '')
-    print(name)
-    print(loc)
-
 
     if(request.method == 'POST'):
         pass

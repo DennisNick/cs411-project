@@ -1,9 +1,8 @@
 from .getArticles import getArticles
 from .models import Article, Collections
 
-basic_ten_articles = []
 cache_collection = dict()
-RANGE = 10
+REFRESH_COUNT = 0
 
 """ STILL NEEDS WORK """
 def cacheArticles(request):
@@ -19,7 +18,28 @@ def cacheArticles(request):
         If it does not have a 0 star rating, make sure the article is stored in the
         collections cache for the current user. This can be made with another function call.
     """
-    return getArticles()
+    global REFRESH_COUNT
+    if (REFRESH_COUNT == 0):
+        REFRESH_COUNT += 1
+        article_list = getArticles()
+        for i in range(10):
+            create_article(article_list[i])
+        return article_list
+    else:
+        last_ten = []
+        REFRESH_COUNT += 1
+        last_id = Article.objects.latest('id').id
+        for i in range(10):
+            pos = last_id-10+i
+            st_article = Article.objects.get(pk=pos)
+            article = [st_article.title, st_article.location, st_article.url,
+                        st_article.lat, st_article.lon, st_article.synopsis]
+            last_ten.append(article)
+        if(REFRESH_COUNT > 5):
+            REFRESH_COUNT = 0
+        return last_ten
+
+    """
     if not basic_ten_articles:
         article_list = getArticles()
         for i in range(RANGE):
@@ -38,7 +58,7 @@ def cacheArticles(request):
                 basic_ten_articles.pop()
             basic_ten_articles.append(article)
         return basic_ten_articles
-
+    """
 """ Creating an Article to store in the Database dependent on the
     basic parameters of the Article model.
 """
@@ -46,10 +66,15 @@ def create_article(article):
     title = article[0]
     loc = article[1]
     url = article[2]
-    synopsis = article[3]
+    lat = article[3]
+    lon = article[4]
+    synopsis = article[5]
+
     article = Article.objects.create(title=title,
                                     location=loc,
                                     url=url,
+                                    lat=lat,
+                                    lon=lon,
                                     synopsis=synopsis)
     return article
 

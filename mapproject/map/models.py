@@ -22,6 +22,8 @@ class Article(models.Model):
     location = models.CharField(max_length=100)
     url = models.URLField(blank=False)
     synopsis = models.CharField(blank=True, max_length=1000)
+    lat = models.FloatField(default=0.0)
+    lon = models.FloatField(default=0.0)
 
     class Meta:
         ordering = ['title', 'location', 'url']
