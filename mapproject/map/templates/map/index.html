@@ -33,6 +33,7 @@
             <div class="col-md-4 article-text">
                 <!-- Articles on the right. The articles are structured as Title, Location, URL respectively -->
                 <div>
+                    <form action='{% url 'store_article' %}' method="POST">
                     <br>
                     <p class="headline hl5" id="article_title">Select a News Article</p>
                     </br>
@@ -41,7 +42,6 @@
                      <p id="article_blurb"> </p>
                     <br><br><br>
                     <p id="article_save" style="visibility: hidden">Save to Favorites</p>
-                    <form action='{% url 'store_article' %}' method="POST">
                     {% csrf_token %}
                     <button id="article_save_button" onclick="save()" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
                         <i class="fa fa-heart" style="font-size: 40px; color:  #f65314;"></i>

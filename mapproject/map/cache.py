@@ -2,7 +2,7 @@ from .getArticles import getArticles
 from .models import Article, Collections
 
 basic_ten_articles = []
-cache_collection = []
+cache_collection = dict()
 RANGE = 10
 
 """ STILL NEEDS WORK """
@@ -50,11 +50,11 @@ def create_article(article):
     article = Article.objects.create(title=title,
                                     location=loc,
                                     url=url,
-                                    snopsis=synopsis)
+                                    synopsis=synopsis)
     return article
 
 
-def cacheCollections(request):
+def cacheCollections(request, article):
     """ Here's the collections cache.
         It's all about maintaining the proper articles for the current user. It
         follows logic that is similar to the article cache, with the exception
@@ -62,5 +62,25 @@ def cacheCollections(request):
         if the rating is changed to 0.
     """
     pass
+    """
     user = request.user
+    if(request.method  == 'GET'):
+        if not cache_collection:
+            return None
+        else:
+            pass
+    elif(request.method == 'POST'):
+        if not cache_collection:
+            article = create_article("ARTICLE")
+            Collections.object.create(article)
+            entry = { article.title : 0 }
+            cache_collection.update(article)
+        else:
 
+    return article
+    """
+
+def checkCache(article_title):
+    if(article_title in cache_collection):
+        return True
+    return False
