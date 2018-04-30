@@ -53,15 +53,14 @@
                         <th>Article URL</th>
                         <th>Location</th>
                     </tr>
-                    {% for articles in collection %}
                         <tr>
-                        {% for article in articles.1 %}
-                            <th>{{articles.0}}<th>
-                            <th>{{articles.1}}<th>
-                            <th>{{articles.2}}<th>
+                        {% for article in collection %}
+                        <p>{{article}}</p>
+                            <th>{{article.0}}<th>
+                            <th>{{article.1}}<th>
+                            <th>{{article.2}}<th>
                         {% endfor %}
                         </tr>
-                    {% endfor %}
                     </tr>
                 </table>
             </div>

@@ -32,7 +32,6 @@ def cacheArticles(request):
         for i in range(10):
             pos = last_id-10+i
             st_article = Article.objects.get(pk=pos)
-            #Article.objects.get(title=st_article.title).delete()
             article = [st_article.title, st_article.location, st_article.url,
                         st_article.lat, st_article.lon, st_article.synopsis]
             last_ten.append(article)
@@ -73,6 +72,7 @@ def cacheCollections(article_title):
     article.save()
     collection = Collections.objects.get()
     collection.articles.add(article)
+    return collection
     """ Here's the collections cache.
         It's all about maintaining the proper articles for the current user. It
         follows logic that is similar to the article cache, with the exception

@@ -21,6 +21,7 @@ from .getArticles import getArticles, convert
 """
 COLLECTION_COUNT = 0
 
+@login_required
 def index(request):
     article_list = cacheArticles(request)
 
@@ -65,8 +66,9 @@ def userpage(request):
     if (user.social_auth.count != 0):
         logout = True
 
-    collection = Collections.objects.all()
-    context = { 'google_login': google_login, 'logout': logout, 'collection': collection}
+    collection = Collections.objects.get()
+    articles = collection.articles.all()
+    context = { 'google_login': google_login, 'logout': logout, 'collection': articles}
     return render(request, 'registration/userpage.html', context)
 
 @login_required
