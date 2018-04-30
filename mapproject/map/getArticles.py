@@ -54,6 +54,7 @@ def getArticles():
                     # These are the current setup for the articles in the article list
                     arr = [title, item['geo_facet'], url, body]
                     article_list.append(arr)
+            break
     return (article_list)
 
 
