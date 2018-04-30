@@ -51,7 +51,7 @@ def login(request):
 @login_required
 def logout(request):
     auth_logout(request)
-    return redirect(request, 'registration/logout.html')
+    return render('login')
 
 """ User page, where the user's favorited collections are located, as well as the
     ability to logout.
