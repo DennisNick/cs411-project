@@ -41,9 +41,6 @@ def getArticles():
     if content:
         for i in range(RANGE):
             articles = convert(json.loads(content.decode("utf-8")))
-            it = len(articles)
-            print(it)
-            print(articles)
             for item in articles['results']:
                 if item['geo_facet'] != "":
                     title = item['title']

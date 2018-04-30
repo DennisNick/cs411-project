@@ -76,7 +76,6 @@ def cacheCollections(request, article):
             entry = { article.title : 0 }
             cache_collection.update(article)
         else:
-
     return article
     """
 

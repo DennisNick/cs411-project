@@ -51,7 +51,7 @@ def login(request):
 @login_required
 def logout(request):
     auth_logout(request)
-    return redirect(request, 'registration/login.html')
+    return render(request, 'registration/login.html')
 
 """ User page, where the user's favorited collections are located, as well as the
     ability to logout.
@@ -78,4 +78,4 @@ def store_article(request):
     if(request.method == 'POST'):
         pass
     context = None
-    return render(request, 'registration/store_article.html', context)
+    return render(request, 'map/index.html', context)
