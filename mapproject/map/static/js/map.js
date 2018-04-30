@@ -23,17 +23,20 @@ function initMap() {
 function drop() {
   clearMarkers();
   for (var i = 0; i < neighborhoods.length; i++) {
-    addMarkerWithTimeout(neighborhoods[i], i * 200, i.toString());
+    addMarkerWithTimeout(neighborhoods[i], i * 200, i.toString(),"http://something", i.toString());
   }
 }
 
-function addMarkerWithTimeout(position, timeout, title) {
+function addMarkerWithTimeout(position, timeout, title, url, abstract) {
   window.setTimeout(function() {
     var marker = (new google.maps.Marker({
       position: position,
       map: map,
       animation: google.maps.Animation.DROP,
-        title: title
+        title: title,
+        url: url,
+        abstract: abstract
+
     }));
     markers.push(marker);
     marker.addListener('click', function() {
@@ -50,6 +53,13 @@ function clearMarkers() {
 }
 
 function clickMarkerEvent(marker, position){
-  document.getElementById("news_title").innerHTML = "News Article: " + marker.title;
-  document.getElementById("news_location").innerHTML = "Location: (" + position.lat + "," + position.lng + ")";
+   document.getElementById("article_title").innerHTML = "News Article: " + marker.title;
+  document.getElementById("article_location").innerHTML = marker.url;
+  document.getElementById("article_blurb").innerHTML = marker.abstract;
+  document.getElementById("article_save").style.visibility = "visible";
+  document.getElementById("article_save_button").style.visibility = "visible";
+}
+
+function save(){
+
 }
