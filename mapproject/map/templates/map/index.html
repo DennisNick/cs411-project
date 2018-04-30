@@ -73,6 +73,30 @@
     var news_article_abstract = [body0, body1, body2, body3, body4, body5, body6, body7, body8, body9];
 
 </script>
+<script>
+function save(){
+    var title =  document.getElementById("article_title").innerHTML;
+    var url = document.getElementById("article_location").innerHTML;
+    
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "/store_article/");
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", title);
+    hiddenField.setAttribute("value", url);
+    form.appendChild(hiddenField);
+    
+    $.ajax({
+    type: "post",
+    url: "/store_article/",
+    data: {
+                'title': title
+    },
+    success: function(msg){alert('wow ' + msg)}});
+}
+</script>
+
 
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <script src="../../static/js/map.js"></script>
@@ -104,17 +128,18 @@
             <div class="col-md-4 article-text">
                 <!-- Articles on the right. The articles are structured as Title, Location, URL respectively -->
                 <div>
-                    <form action='{% url 'store_article' %}' method="POST">
-                    {% csrf_token %}
                     <br>
-                    <p class="headline hl5" value="title" id="article_title">Select a News Article</p>
+                    <form method="POST" id="save">
+                    {% csrf_token %}
+                    <p class="headline hl5" id="article_title">Select a News Article</p>
                     </br>
                     <p class="headline hl6" id="article_location"></p>
                     </br>
-                     <p id="article_blurb"> </p>
+                    <p id="article_blurb"> </p>
                     <br><br>
                     <p id="article_save" style="visibility: hidden">Save to Favorites</p>
-                    <button id="article_save_button" onclick="save()" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
+                    <button id="article_save_button" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
+                        <input type="hidden" id="article_store" name="title" value="{{title}}">
                         <i class="fa fa-heart" style="font-size: 40px; color:  #f65314;"></i>
                     </button>
                     </form>

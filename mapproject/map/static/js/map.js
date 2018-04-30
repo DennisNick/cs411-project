@@ -62,21 +62,34 @@ function clearMarkers() {
 }
 
 function clickMarkerEvent(marker, position){
-   document.getElementById("article_title").innerHTML = marker.title;
+  document.getElementById("article_title").innerHTML = marker.title;
   document.getElementById("article_location").innerHTML = marker.url;
   document.getElementById("article_blurb").innerHTML = marker.abstract;
   document.getElementById("article_save").style.visibility = "visible";
   document.getElementById("article_save_button").style.visibility = "visible";
+  //document.getElementById("article_save_button").innerHTML = "visible";
+  //document.getElementById("article_store").innerHTML = marker.title;
 }
 
 function save(){
     var title =  document.getElementById("article_title").innerHTML;
     var url = document.getElementById("article_location").innerHTML;
+
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "/store_article/");
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", title);
+    hiddenField.setAttribute("value", url);
+    form.appendChild(hiddenField);
+
     $.ajax({
-        type: "POST",
+        datatype: "json",
+        type: "post",
         url: "/store_article/",
         data: {
                 'title': title
               },
     success: function(msg){alert('wow ' + msg)}});
-    }
+}

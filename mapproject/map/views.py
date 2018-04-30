@@ -45,14 +45,13 @@ def index(request):
 @login_required
 def login(request):
     login_template = loader.get_template('registration/login.html')
-    context = None
-    return render(request, login_template, context)
+    return render(request, login_template)
 
 """ Logout function, defined to logout of a Google+ account """
 @login_required
 def logout(request):
-    auth_logout(request)
-    return redirect('login')
+    logout(request)
+    return redirect('login.html')
 
 """ User page, where the user's favorited collections are located, as well as the
     ability to logout.
@@ -76,6 +75,9 @@ def userpage(request):
 @login_required
 def store_article(request):
     user = request.user
+    data = request.form.get('store_article', 0)
+    print(request)
+    print(data)
 
     if(request.method == 'POST'):
         pass

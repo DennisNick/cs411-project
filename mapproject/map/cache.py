@@ -31,6 +31,7 @@ def cacheArticles(request):
         last_id = Article.objects.latest('id').id
         for i in range(10):
             pos = last_id-10+i
+            print(pos)
             st_article = Article.objects.get(pk=pos)
             article = [st_article.title, st_article.location, st_article.url,
                         st_article.lat, st_article.lon, st_article.synopsis]
