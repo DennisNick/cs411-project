@@ -47,8 +47,8 @@ def login(request):
 """ Logout function, defined to logout of a Google+ account """
 @login_required
 def logout(request):
-    logout(request)
-    return redirect('login.html')
+    auth_logout(request)
+    return redirect('login')
 
 """ User page, where the user's favorited collections are located, as well as the
     ability to logout.
