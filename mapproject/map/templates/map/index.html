@@ -2,6 +2,10 @@
 {% extends "generic.html" %} 
 
 {% block content %}
+
+<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<script src="../../static/js/map.js"></script>
+<body onload="drop()">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
@@ -11,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                 <a class="nav-link rounded js-scroll-trigger" href="javascript:drop()">Load</a>
+                 <a class="nav-link rounded js-scroll-trigger" href="javascript:drop()">Reload News</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link rounded js-scroll-trigger" href="{% url 'userpage' %}">User</a>
@@ -29,23 +33,21 @@
             <div class="col-md-4 article-text">
                 <!-- Articles on the right. The articles are structured as Title, Location, URL respectively -->
                 <div>
-                    <ul>
-                        {% if search_result %}
-                        <p id = "search result">{{ "search result:" }}<br>{{ "Title: " }}{{  search_result.0  }}
-                        <br>{{ "Location: " }}{{ search_result.1 }}<br>{{ "Link: " }}{{ search_result.2 }}
-                        </p>
-                        {%  endif %}
-                    </ul>
-                    <p id="matching search"></p>
-                    <ul>
-                        {% for article in article_list %}
-                        <p id="news_title">{{ "Title: " }}{{article.0}},<br> {{ "Location: " }}{{article.1}}, <br>{{ "Link: " }}{{article.2}} </p>
-                        <!--p id="news_location"></p-->
-                         {% endfor %}
-                    </ul>
+                    <br>
+                    <p class="headline hl5" id="article_title">Select a News Article</p>
+                    </br>
+                    <p class="headline hl6" id="article_location"></p>
+                    </br>
+                     <p id="article_blurb"> </p>
+                    <br><br><br>
+                    <p id="article_save" style="visibility: hidden">Save to Favorites</p>
+                    <button id="article_save_button" onclick="save()" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
+                        <i class="fa fa-heart" style="font-size: 40px; color:  #f65314;"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</body>
 {% endblock %}
 
