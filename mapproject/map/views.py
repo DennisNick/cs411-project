@@ -19,9 +19,14 @@ from .getArticles import getArticles, convert
     Makes use of the getArticles function to properly obtain
     articles queried from the NYTimes API
 """
+COLLECTION_COUNT = 0
+
 def index(request):
     article_list = cacheArticles(request)
-    createCollections(request)
+    global COLLECTION_COUNT
+    if(COLLECTION_COUNT == 0):
+        createCollections(request)
+        COLLECTION_COUNT += 1
 
     template = loader.get_template('map/index.html')
     context = { 'article_list': article_list }
@@ -59,7 +64,7 @@ def userpage(request):
     if (user.social_auth.count != 0):
         logout = True
 
-    collection = Collections.object.all()
+    collection = Collections.objects.all()
     context = { 'google_login': google_login, 'logout': logout, 'collection': collection}
     return render(request, 'registration/userpage.html', context)
 
@@ -71,4 +76,4 @@ def store_article(request):
         data = convert(request.POST)
         title = data['title']
         cacheCollections(title)
-    return redirect(request, 'login.html')
+    return render(request, 'registration/store_article.html')

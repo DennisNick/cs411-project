@@ -20,7 +20,6 @@ def cacheArticles(request):
     """
     global REFRESH_COUNT
     if (REFRESH_COUNT == 0):
-        Article.objects.all().delete()
         REFRESH_COUNT += 1
         article_list = getArticles()
         for i in range(10):
@@ -33,7 +32,7 @@ def cacheArticles(request):
         for i in range(10):
             pos = last_id-10+i
             st_article = Article.objects.get(pk=pos)
-            Article.objects.get(title=st_article.title).delete()
+            #Article.objects.get(title=st_article.title).delete()
             article = [st_article.title, st_article.location, st_article.url,
                         st_article.lat, st_article.lon, st_article.synopsis]
             last_ten.append(article)
@@ -62,6 +61,7 @@ def create_article(article):
 
 CHECK = 0
 def createCollections(request):
+    Collections.objects.all().delete()
     global CHECK
     if(CHECK == 0):
         Collections.objects.create()
@@ -69,8 +69,10 @@ def createCollections(request):
     return
 
 def cacheCollections(article_title):
-    article = Article.objects.get(title=article_title)
-    Collections.articles.add(article)
+    article = Article.objects.filter(title=article_title)[0]
+    article.save()
+    collection = Collections.objects.get()
+    collection.articles.add(article)
     """ Here's the collections cache.
         It's all about maintaining the proper articles for the current user. It
         follows logic that is similar to the article cache, with the exception
