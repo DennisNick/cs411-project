@@ -77,7 +77,9 @@
 function save(){
     var title =  document.getElementById("article_title").innerHTML;
     var url = document.getElementById("article_location").innerHTML;
+    document.getElementById("article_store").value = title
     
+
     var form = document.createElement("form");
     form.setAttribute("method", "POST");
     form.setAttribute("action", "/store_article/");
@@ -91,7 +93,7 @@ function save(){
     type: "post",
     url: "/store_article/",
     data: {
-                'title': title
+        'title': title
     },
     success: function(msg){alert('wow ' + msg)}});
 }
@@ -129,7 +131,7 @@ function save(){
                 <!-- Articles on the right. The articles are structured as Title, Location, URL respectively -->
                 <div>
                     <br>
-                    <form method="POST" id="save">
+                    <form method="POST" id="save" action="{% url 'store_article' %}">
                     {% csrf_token %}
                     <p class="headline hl5" id="article_title">Select a News Article</p>
                     </br>
@@ -139,7 +141,7 @@ function save(){
                     <br><br>
                     <p id="article_save" style="visibility: hidden">Save to Favorites</p>
                     <button id="article_save_button" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
-                        <input type="hidden" id="article_store" name="title" value="{{title}}">
+                        <input type="hidden" id="article_store" name="title" value="">
                         <i class="fa fa-heart" style="font-size: 40px; color:  #f65314;"></i>
                     </button>
                     </form>

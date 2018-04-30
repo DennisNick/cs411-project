@@ -10,6 +10,7 @@ from social_django.models import UserSocialAuth
 from .models import Collections
 from .cache import cacheArticles, create_article, cacheCollections
 from .keys import googlemaps_apikey
+import json
 
 # getArticles.py file
 from .getArticles import getArticles
@@ -75,9 +76,11 @@ def userpage(request):
 @login_required
 def store_article(request):
     user = request.user
-    data = request.form.get('store_article', 0)
+    #data = request.form.get('store_article', 0)
+    m = json.dumps(request.POST)
+    print(m)
     print(request)
-    print(data)
+    #print(data)
 
     if(request.method == 'POST'):
         pass
