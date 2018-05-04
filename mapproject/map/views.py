@@ -20,7 +20,6 @@ from .getArticles import getArticles, convert
     articles queried from the NYTimes API
 """
 COLLECTION_COUNT = 0
-
 @login_required
 def index(request):
     article_list = cacheArticles(request)
@@ -58,6 +57,7 @@ def userpage(request):
     user = request.user
     logout = False
 
+    """ Google Authentication Login verification """
     try:
         google_login = user.social_auth.get(provider='google-oauth2')
     except UserSocialAuth.DoesNotExist:
@@ -71,6 +71,7 @@ def userpage(request):
     context = { 'google_login': google_login, 'logout': logout, 'collection': articles}
     return render(request, 'registration/userpage.html', context)
 
+""" Article storage function """
 @login_required
 def store_article(request):
     user = request.user

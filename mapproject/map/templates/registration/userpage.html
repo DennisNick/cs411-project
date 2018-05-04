@@ -8,62 +8,71 @@
 <link rel="stylesheet" href="../../static/css/styles.css" >
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
 <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-      <div class="container">
+
+<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+    <div class="container">
+        
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fa fa-bars"></i>
+            <i class="fa fa-bars"></i>
         </button>
+        
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                 <a class="nav-link rounded js-scroll-trigger" href="{% url 'index' %}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link rounded js-scroll-trigger" href="{% url 'userpage' %}">User</a>
-              </li>
-          </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link rounded js-scroll-trigger" href="{% url 'index' %}">Home</a>
+                </li>
+              
+                <li class="nav-item">
+                    <a class="nav-link rounded js-scroll-trigger" href="{% url 'userpage' %}">User</a>
+                </li>
+            </ul>
         </div>
-      </div>
-    </nav>
-    <br><br><br>
+    </div>
+</nav>
 
-    <div class="limiter">
-            <div class="user-page-top">
-                    <h1 class="user-page-title">
-                        User Page
-                    </h1>
-                    {% if google_login %}
-                        {% if logout %}
-                            <form method="post" action="{% url 'logout' %}">
-                             {% csrf_token %}
-                                <button class="btn-primary rounded pb-10" type="submit">Logout of Google</button>
-                            </form>
-                        {% endif %}
-                    {% endif %}
+<br><br><br>
 
-            </div>
+<div class="limiter">
+    <div class="user-page-top">
+        
+        <h1 class="user-page-title">
+            User Page
+        </h1>
+                    
+        {% if google_login %}
+            {% if logout %}
+                <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                    <button class="btn-primary rounded pb-10" type="submit">Logout of Google</button>
+                </form>
+            {% endif %}
+         {% endif %}
 
-            <div class="container">
-                <br>
-                <span class="login100-form-title p-b-40"> Collections </span>
-                <br>
-                <table>
-                    <tr>
-                        <th>Article Title</th>
-                        <th>Article URL</th>
-                        <th>Location</th>
-                    </tr>
-                        <tr>
-                        {% for article in collection %}
-                        <p>{{article}}</p>
-                            <th>{{article.0}}<th>
-                            <th>{{article.1}}<th>
-                            <th>{{article.2}}<th>
-                        {% endfor %}
-                        </tr>
-                    </tr>
-                </table>
-            </div>
+    </div>
+
+    <div class="container">
+        <br>
+        <span class="login100-form-title p-b-40"> Collections </span>
+        <br>
+            <table>
+                <tr>
+                    <th>Article Title</th>
+                    <th>Article URL</th>
+                    <th>Location</th>
+                </tr>
+                
+                <tr>
+                    <!-- Display articles saved in the Collections database -->
+                    {% for article in collection %}
+                    <p>{{article}}</p>
+                        <th>{{article.0}}<th>
+                        <th>{{article.1}}<th>
+                        <th>{{article.2}}<th>
+                    {% endfor %}
+                </tr>
+            </table>
+            
+    </div>
 </div>
 
 {% endblock %}

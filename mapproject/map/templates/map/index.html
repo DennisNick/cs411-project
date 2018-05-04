@@ -2,6 +2,7 @@
 {% extends "generic.html" %} 
 
 {% block content %}
+<!-- A script for designating pin location, and association with an Article's title, url, and location -->
 <script>
     var lat0 = parseFloat("{{article_list.0.3}}");
     var lng0 = parseFloat("{{article_list.0.4}}");
@@ -73,6 +74,8 @@
     var news_article_abstract = [body0, body1, body2, body3, body4, body5, body6, body7, body8, body9];
 
 </script>
+
+<!-- A script for saving Articles into the User Collections database table -->
 <script>
 function save(){
     var title =  document.getElementById("article_title").innerHTML;
@@ -102,51 +105,61 @@ function save(){
 
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <script src="../../static/js/map.js"></script>
+
 <body onload="drop(neighborhoods, news_article_title, news_article_url, news_article_abstract)">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
+        
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa fa-bars"></i>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                 <a class="nav-link rounded js-scroll-trigger" href="javascript:drop(neighborhoods, news_article_title, news_article_url, news_article_abstract)">Reload News</a>
-              </li>
-              <li class="nav-item">
+            <li class="nav-item">
+                <a class="nav-link rounded js-scroll-trigger" href="javascript:drop(neighborhoods, news_article_title, news_article_url, news_article_abstract)">Reload News</a>
+            </li>
+                
+            <li class="nav-item">
                 <a class="nav-link rounded js-scroll-trigger" href="{% url 'userpage' %}">User</a>
-              </li>
+            </li>
           </ul>
         </div>
+
       </div>
     </nav>
+
     <br><br><br><br>
+    
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div id="map"></div>
             </div>
+            
             <div class="col-md-4 article-text">
                 <!-- Articles on the right. The articles are structured as Title, Location, URL respectively -->
+                <!-- Additionally, a form is created to save the Article to a collections call using the Ajax script above -->
                 <div>
                     <br>
                     <form method="POST" id="save" action="{% url 'store_article' %}">
                     {% csrf_token %}
-                    <p class="headline hl5" id="article_title">Select a News Article</p>
+                        <p class="headline hl5" id="article_title">Select a News Article</p>
                     </br>
-                    <p class="headline hl6" id="article_location"></p>
+                        <p class="headline hl6" id="article_location"></p>
                     </br>
-                    <p id="article_blurb"> </p>
+                        <p id="article_blurb"> </p>
                     <br><br>
-                    <p id="article_save" style="visibility: hidden">Save to Favorites</p>
-                    <button id="article_save_button" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
-                        <input type="hidden" id="article_store" name="title" value="">
-                        <i class="fa fa-paw" style="font-size: 40px; color:  #f65314;"></i>
-                    </button>
+                        <p id="article_save" style="visibility: hidden">Save to Favorites</p>
+                        <button id="article_save_button" style="visibility: hidden; border: none; cursor: pointer;" onmouseover="">
+                            <input type="hidden" id="article_store" name="title" value="">
+                            <i class="fa fa-paw" style="font-size: 40px; color:  #f65314;"></i>
+                        </button>
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </body>

@@ -17,7 +17,6 @@ def convert(input):
     elif isinstance(input, list):
         return [convert(element) for element in input]
     elif isinstance(input, str):
-        #return input.encode('utf-8')
         return input
     else:
         return input
@@ -54,7 +53,6 @@ def getArticles():
                 # These are the current setup for the articles in the article list
                 arr = [title, item['geo_facet'], url]
                 try:
-                    #print (arr[1][0].split(" ")[0])
                     val = (arr[1][0].split(" ")[0])
                 except:
                     val = arr[1][0]
@@ -63,14 +61,12 @@ def getArticles():
                                  "&key=" + coordinate_apikey
                 try:
                     response = urllib2.urlopen(request_string)
-                    #print(response)
                 except urllib2.HTTPError:
                     print("HTTP Error caught!")
 
                 content = response.read()
                 if content:
                     res = convert(json.loads(content.decode("utf-8")))
-                    #pprint (res['results'][0]['geometry']['location'])
                     loc = res['results'][0]['geometry']['location']
                     lat = loc['lat']
                     lng = loc['lng']
